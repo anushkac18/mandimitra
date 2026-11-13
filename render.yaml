@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: mandimitra-api
+    runtime: node
+    plan: starter
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: mandimitra-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_FILE
+        value: /var/data/mandimitra.sqlite
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_ORIGIN
+        value: https://mandimitra-delta.vercel.app
+      - key: SEED_DEMO_DATA
+        value: "true"
+      - key: DEMO_ADMIN_PASSWORD
+        sync: false
+      - key: DEMO_GATE_PASSWORD
+        sync: false
+      - key: DEMO_WEIGHBRIDGE_PASSWORD
+        sync: false
+      - key: DEMO_FARMER_PASSWORD
+        sync: false

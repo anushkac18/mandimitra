@@ -2,20 +2,16 @@ services:
   - type: web
     name: mandimitra-api
     runtime: node
-    plan: starter
+    plan: free
     rootDir: server
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
-    disk:
-      name: mandimitra-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
       - key: DB_FILE
-        value: /var/data/mandimitra.sqlite
+        value: /tmp/mandimitra.sqlite
       - key: JWT_SECRET
         generateValue: true
       - key: CLIENT_ORIGIN
